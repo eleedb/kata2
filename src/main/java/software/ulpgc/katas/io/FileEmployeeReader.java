@@ -6,7 +6,6 @@ import software.ulpgc.katas.model.Gender;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.InflaterOutputStream;
 
 public class FileEmployeeReader implements EmployeeReader {
 
