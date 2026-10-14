@@ -3,35 +3,29 @@ package software.ulpgc.katas.io;
 import software.ulpgc.katas.model.Employee;
 import software.ulpgc.katas.model.Gender;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.InflaterOutputStream;
 
-public class FileEmployeeReader implements EmployeeReader{
+public class FileEmployeeReader implements EmployeeReader {
+
     private final File file;
 
     public FileEmployeeReader(File file) {
-        this.file = file;
+        this.file=file;
     }
-
     @Override
     public List<Employee> readAll() {
-        try (InputStream is = new FileInputStream(file)) {
+        try(InputStream is = new FileInputStream(file)) {
             return loadFrom(is);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (IOException e){
+            throw new RuntimeException(e);}
     }
 
     private List<Employee> loadFrom(InputStream is) throws IOException {
-        try(Reader reader = new InputStreamReader(is)) {
-            return loadFrom(reader);
-        }
+        Reader reader = new InputStreamReader(is);
+        return loadFrom(reader);
     }
 
     private List<Employee> loadFrom(Reader reader) throws IOException {
@@ -39,11 +33,11 @@ public class FileEmployeeReader implements EmployeeReader{
     }
 
     private List<Employee> loadFrom(List<String> lines) {
-        List<Employee> list = new ArrayList<>();
-        for (int i = 1; i < lines.size(); i++) {
-            list.add(loadFrom(lines.get(i)));
+        List<Employee> employees = new ArrayList<>();
+        for (int i= 1; i < lines.size(); i++) {
+            employees.add(loadFrom(lines.get(i)));
         }
-        return list;
+        return employees;
     }
 
     private Employee loadFrom(String line) {

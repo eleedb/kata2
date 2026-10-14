@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UrlEmployeeReader implements EmployeeReader {
+
     private final URL url;
 
     public UrlEmployeeReader(URL url) {
@@ -28,9 +29,8 @@ public class UrlEmployeeReader implements EmployeeReader {
     }
 
     private List<Employee> loadFrom(InputStream is) throws IOException {
-        try (Reader reader = new InputStreamReader(is)) {
-            return loadFrom(reader);
-        }
+        Reader reader = new InputStreamReader(is);
+        return loadFrom(reader);
     }
 
     private List<Employee> loadFrom(Reader reader) throws IOException {
@@ -38,11 +38,11 @@ public class UrlEmployeeReader implements EmployeeReader {
     }
 
     private List<Employee> loadFrom(List<String> lines) {
-        List<Employee> list = new ArrayList<>();
-        for (int i = 1; i < lines.size(); i++) {
-            list.add(loadFrom(lines.get(i)));
+        List<Employee> employees = new ArrayList<>();
+        for (int i= 1; i < lines.size(); i++) {
+            employees.add(loadFrom(lines.get(i)));
         }
-        return list;
+        return employees;
     }
 
     private Employee loadFrom(String line) {
