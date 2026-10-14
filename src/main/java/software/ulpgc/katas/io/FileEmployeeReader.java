@@ -36,7 +36,7 @@ public class FileEmployeeReader implements EmployeeReader {
 
     private List<Employee> loadFrom(List<String> lines) {
         List<Employee> list = new ArrayList<>();
-        for(int i = 0; i < lines.size(); i++) {
+        for(int i = 1; i < lines.size(); i++) {
             list.add(loadFrom(lines.get(i)));
         }
         return list;
